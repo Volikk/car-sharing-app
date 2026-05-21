@@ -1,11 +1,14 @@
-#Wed May 20 11:19:10 CEST 2026
+#Thu May 21 12:33:00 CEST 2026
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/DemoApplication.java=1779093467000
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/config/SecurityConfig.java=1779187945421
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/controller/AuthController.java=1779186340129
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/controller/CarController.java=1779099484418
+/Users/volikkk/car-sharing-app/src/main/java/com/example/demo/controller/RentalController.java=1779359563950
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/controller/UserController.java=1779268724915
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/dto/CarDto.java=1779098355507
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/dto/CreateCarRequestDto.java=1779098355504
+/Users/volikkk/car-sharing-app/src/main/java/com/example/demo/dto/RentalRequestDto.java=1779269294831
+/Users/volikkk/car-sharing-app/src/main/java/com/example/demo/dto/RentalResponseDto.java=1779269686377
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/dto/UserLoginRequestDto.java=1779179938586
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/dto/UserLoginResponseDto.java=1779180071625
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/dto/UserRegistrationRequestDto.java=1779106876382
@@ -14,10 +17,13 @@
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/exception/EntityNotFoundException.java=1779098355520
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/exception/RegistrationException.java=1779107123369
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/mapper/CarMapper.java=1779099403284
+/Users/volikkk/car-sharing-app/src/main/java/com/example/demo/mapper/RentalMapper.java=1779269543075
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/mapper/UserMapper.java=1779106980789
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/model/Car.java=1779099501588
+/Users/volikkk/car-sharing-app/src/main/java/com/example/demo/model/Rental.java=1779269109282
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/model/User.java=1779186175833
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/repository/CarRepository.java=1779098355496
+/Users/volikkk/car-sharing-app/src/main/java/com/example/demo/repository/RentalRepository.java=1779269138871
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/repository/UserRepository.java=1779106080587
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/security/AuthenticationService.java=1779180905282
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/security/AuthenticationServiceImpl.java=1779181114263
@@ -25,8 +31,10 @@
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/security/JwtAuthenticationFilter.java=1779187915307
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/security/JwtUtil.java=1779180882995
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/service/CarService.java=1779098355517
+/Users/volikkk/car-sharing-app/src/main/java/com/example/demo/service/RentalService.java=1779269551918
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/service/UserService.java=1779268708077
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/service/impl/CarServiceImpl.java=1779099349990
+/Users/volikkk/car-sharing-app/src/main/java/com/example/demo/service/impl/RentalServiceImpl.java=1779359448808
 /Users/volikkk/car-sharing-app/src/main/java/com/example/demo/service/impl/UserServiceImpl.java=1779268708105
 /Users/volikkk/car-sharing-app/src/main/resources/application.properties=1779180672797
 configuration*?=FB7D08AFB8F42B6043FF0E389164A67AFDCEC4F
