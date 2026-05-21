@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import java.util.List;
 import com.example.demo.dto.RentalRequestDto;
 import com.example.demo.dto.RentalResponseDto;
 import com.example.demo.mapper.RentalMapper;
@@ -12,6 +13,7 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.service.RentalService;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,5 +69,26 @@ public class RentalServiceImpl implements RentalService {
         carRepository.save(car);
 
         return rentalMapper.toDto(rentalRepository.save(rental));
+    }
+
+    @Override
+    public List<RentalResponseDto> getRentalsByUserIdAndStatus(
+            Long userId,
+            Boolean isActive,
+            org.springframework.data.domain.Pageable pageable
+    ) {
+        List<Rental> rentals;
+
+        if (isActive == null) {
+            rentals = rentalRepository.findByUserId(userId, pageable);
+        } else if (isActive) {
+            rentals = rentalRepository.findByUserIdAndActualReturnDateIsNull(userId, pageable);
+        } else {
+            rentals = rentalRepository.findByUserIdAndActualReturnDateIsNotNull(userId, pageable);
+        }
+
+        return rentals.stream()
+                .map(rentalMapper::toDto)
+                .toList();
     }
 }
