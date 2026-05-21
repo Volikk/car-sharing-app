@@ -5,4 +5,6 @@ import com.example.demo.dto.RentalResponseDto;
 
 public interface RentalService {
     RentalResponseDto add(RentalRequestDto requestDto, String email);
+
+    RentalResponseDto returnCar(Long id);
 }

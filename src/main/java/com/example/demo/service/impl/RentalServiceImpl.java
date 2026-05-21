@@ -49,4 +49,23 @@ public class RentalServiceImpl implements RentalService {
 
         return rentalMapper.toDto(rentalRepository.save(rental));
     }
+
+    @Override
+    @Transactional
+    public RentalResponseDto returnCar(Long id) {
+        Rental rental = rentalRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Can't find rental by id: " + id));
+
+        if (rental.getActualReturnDate() != null) {
+            throw new IllegalArgumentException("This rental has already been returned.");
+        }
+
+        rental.setActualReturnDate(LocalDateTime.now());
+
+        Car car = rental.getCar();
+        car.setInventory(car.getInventory() + 1);
+        carRepository.save(car);
+
+        return rentalMapper.toDto(rentalRepository.save(rental));
+    }
 }

@@ -23,4 +23,9 @@ public class RentalController {
     ) {
         return rentalService.add(requestDto, authentication.getName());
     }
+
+    @PostMapping("/{id}/return")
+    public RentalResponseDto returnCar(@org.springframework.web.bind.annotation.PathVariable Long id) {
+        return rentalService.returnCar(id);
+    }
 }
