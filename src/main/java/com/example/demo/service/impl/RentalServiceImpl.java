@@ -1,6 +1,5 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
 import com.example.demo.dto.RentalRequestDto;
 import com.example.demo.dto.RentalResponseDto;
 import com.example.demo.mapper.RentalMapper;
@@ -10,11 +9,13 @@ import com.example.demo.model.User;
 import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.RentalRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.NotificationService;
 import com.example.demo.service.RentalService;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class RentalServiceImpl implements RentalService {
     private final CarRepository carRepository;
     private final UserRepository userRepository;
     private final RentalMapper rentalMapper;
+    private final NotificationService notificationService;
 
     @Override
     @Transactional
@@ -49,7 +51,15 @@ public class RentalServiceImpl implements RentalService {
         rental.setCar(car);
         rental.setUser(user);
 
-        return rentalMapper.toDto(rentalRepository.save(rental));
+        Rental savedRental = rentalRepository.save(rental);
+
+        notificationService.sendRentalCreationMessage(
+                email,
+                car.getModel(),
+                rental.getReturnDate().toString()
+        );
+
+        return rentalMapper.toDto(savedRental);
     }
 
     @Override
@@ -68,14 +78,18 @@ public class RentalServiceImpl implements RentalService {
         car.setInventory(car.getInventory() + 1);
         carRepository.save(car);
 
-        return rentalMapper.toDto(rentalRepository.save(rental));
+        Rental updatedRental = rentalRepository.save(rental);
+
+        notificationService.sendRentalReturnMessage(updatedRental.getId(), car.getModel());
+
+        return rentalMapper.toDto(updatedRental);
     }
 
     @Override
     public List<RentalResponseDto> getRentalsByUserIdAndStatus(
             Long userId,
             Boolean isActive,
-            org.springframework.data.domain.Pageable pageable
+            Pageable pageable
     ) {
         List<Rental> rentals;
 

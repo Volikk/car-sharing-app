@@ -8,6 +8,7 @@ import com.example.demo.model.Payment;
 import com.example.demo.model.Rental;
 import com.example.demo.repository.PaymentRepository;
 import com.example.demo.repository.RentalRepository;
+import com.example.demo.service.NotificationService;
 import com.example.demo.service.PaymentService;
 import com.stripe.Stripe;
 import com.stripe.model.checkout.Session;
@@ -33,6 +34,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final RentalRepository rentalRepository;
     private final PaymentMapper paymentMapper;
+    private final NotificationService notificationService;
 
     @PostConstruct
     public void init() {
@@ -96,6 +98,12 @@ public class PaymentServiceImpl implements PaymentService {
                 .orElseThrow(() -> new EntityNotFoundException("Can't find payment by session id: " + sessionId));
 
         payment.setStatus(Payment.Status.PAID);
+        Payment savedPayment = paymentRepository.save(payment);
+
+        notificationService.sendPaymentSuccessMessage(
+                savedPayment.getRental().getId(),
+                savedPayment.getAmount()
+        );
         paymentRepository.save(payment);
     }
 
