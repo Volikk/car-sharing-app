@@ -104,6 +104,7 @@ public class PaymentServiceImpl implements PaymentService {
                 savedPayment.getRental().getId(),
                 savedPayment.getAmount()
         );
+        paymentRepository.save(payment);
     }
 
     private BigDecimal calculateAmount(Rental rental, String type) {
